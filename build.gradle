@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.github.deopping'
+version = "${versionMajor}.${versionMinor}.${versionPatch}"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://libraries.minecraft.net/' }
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly "org.spigotmc:spigot-api:$versionSpigot"
+    compileOnly "com.github.drawethree:X-PrisonAPI:$versionXPrisonAPI"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes.put("X-Prison-Addon-Class", "io.github.deopping.xprisonblockseconomy.BlocksEconomyAddon")
+        attributes.put("X-Prison-Addon-Name", "BlocksEconomy")
+        attributes.put("X-Prison-Addon-Description", "Allows you to use player mined blocks as an XPrison currency!")
+        attributes.put("X-Prison-Addon-Version", version)
+        attributes.put("X-Prison-Addon-Author", "Mantice")
+    }
+}
