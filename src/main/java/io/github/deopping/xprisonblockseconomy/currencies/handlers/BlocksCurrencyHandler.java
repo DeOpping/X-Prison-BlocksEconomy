@@ -3,25 +3,18 @@ package io.github.deopping.xprisonblockseconomy.currencies.handlers;
 import dev.drawethree.xprison.api.currency.enums.LostCause;
 import dev.drawethree.xprison.api.currency.enums.ReceiveCause;
 import dev.drawethree.xprison.api.currency.model.XPrisonCurrencyHandler;
-import dev.drawethree.xprison.api.miningstats.XPrisonMiningStatsAPI;
-import io.github.deopping.xprisonblockseconomy.BlocksEconomyAddon;
+import dev.drawethree.xprison.blocks.XPrisonBlocks;
 import org.bukkit.OfflinePlayer;
 
 public class BlocksCurrencyHandler implements XPrisonCurrencyHandler {
 
-    private final XPrisonMiningStatsAPI miningStatsApi;
-
-    public BlocksCurrencyHandler() {
-        miningStatsApi = BlocksEconomyAddon.getInstance().getApi().getMiningStatsApi();
-    }
-
     @Override
     public double getBalance(OfflinePlayer offlinePlayer) {
-        if (!offlinePlayer.isOnline()) {
+        if (!XPrisonBlocks.getInstance().isEnabled()) {
             return 0.0d;
         }
 
-        return miningStatsApi.getStats(offlinePlayer.getPlayer()).getBlocksMined();
+        return XPrisonBlocks.getInstance().getBlocksManager().getPlayerBrokenBlocks(offlinePlayer);
     }
 
     @Override
@@ -41,12 +34,8 @@ public class BlocksCurrencyHandler implements XPrisonCurrencyHandler {
 
     @Override
     public boolean has(OfflinePlayer offlinePlayer, double v) {
-        if (!offlinePlayer.isOnline()) {
-            return false;
-        }
-
-        int blocksMined = miningStatsApi.getStats(offlinePlayer.getPlayer()).getBlocksMined();
-        return blocksMined >= Math.min(v, Integer.MAX_VALUE);
+        final long blocksMined = XPrisonBlocks.getInstance().getBlocksManager().getPlayerBrokenBlocks(offlinePlayer);
+        return blocksMined >= Math.min(v, Long.MAX_VALUE);
     }
 
 }
