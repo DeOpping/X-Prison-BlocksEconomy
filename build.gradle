@@ -24,6 +24,7 @@ dependencies {
     compileOnly "org.spigotmc:spigot-api:$versionSpigot"
 //    compileOnly "com.github.drawethree:X-PrisonAPI:$versionXPrisonAPI"
     compileOnly files('libs/X-Prison 2025.4.1.4.jar')
+    compileOnly files('libs/helper.jar')
 }
 
 test {
