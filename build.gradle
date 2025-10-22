@@ -8,7 +8,6 @@ version = "${versionMajor}.${versionMinor}.${versionPatch}"
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'https://libraries.minecraft.net/' }
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
         content {
@@ -16,14 +15,15 @@ repositories {
             includeGroup 'org.spigotmc'
         }
     }
-    maven { url 'https://jitpack.io' }
+//    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     compileOnly "org.spigotmc:spigot-api:$versionSpigot"
-    compileOnly "com.github.drawethree:X-PrisonAPI:$versionXPrisonAPI"
+//    compileOnly "com.github.drawethree:X-PrisonAPI:$versionXPrisonAPI"
+    compileOnly files('libs/X-Prison 2025.4.1.4.jar')
 }
 
 test {
