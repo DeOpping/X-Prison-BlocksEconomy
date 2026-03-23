@@ -37,7 +37,7 @@ public final class BlocksEconomyAddon implements XPrisonAddon {
 
     @Override
     public void onDisable() {
-        api.getCurrencyApi().registerCurrency(currency);
+        api.getCurrencyApi().unregisterCurrency(currency);
     }
 
     public XPrisonAPI getApi() {
